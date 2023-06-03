@@ -1,0 +1,307 @@
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+/*Login form stles*/
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+    .form-signin .checkbox {
+        font-weight: 400;
+    }
+
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+.tableDropdown {
+    position: unset !important;
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+
+.border-left-danger {
+    border-left: 0.25rem solid #e74a3b !important;
+}
+
+.border-left-dark {
+    border-left: 0.25rem solid #5a5c69 !important;
+}
+
+
+
+.breadcrumb-item + .breadcrumb-item::before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f105";
+    font-weight: 900;
+}
+
+.hide-p {
+    opacity: 0;
+    right: -100%;
+}
+
+.show-p {
+    opacity: 1;
+    right: 11%;
+}
+
+.bottomMenu {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    transition: all 1s;
+}
+
+.clear {
+    clear: both;
+    height: 100px;
+}
+
+.nounderline {
+    text-decoration: none;
+}
+
+.error {
+    color: red;
+}
+
+.ui-widget-overlay {
+    opacity: .3 !important;
+}
+
+#allForms {
+    display: none;
+}
+
+/*.breadcrumb {
+    background-color: #d8dce1;
+}*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #2d2d2d;
+}
+
+    h1 small,
+    h2 small,
+    h3 small,
+    h4 small,
+    h5 small,
+    h6 small,
+    .h1 small,
+    .h2 small,
+    .h3 small,
+    .h4 small,
+    .h5 small,
+    .h6 small,
+    h1 .small,
+    h2 .small,
+    h3 .small,
+    h4 .small,
+    h5 .small,
+    h6 .small,
+    .h1 .small,
+    .h2 .small,
+    .h3 .small,
+    .h4 .small,
+    .h5 .small,
+    .h6 .small {
+        font-weight: normal;
+        line-height: 1;
+        color: #999999;
+    }
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+    h1 small,
+    .h1 small,
+    h2 small,
+    .h2 small,
+    h3 small,
+    .h3 small,
+    h1 .small,
+    .h1 .small,
+    h2 .small,
+    .h2 .small,
+    h3 .small,
+    .h3 .small {
+        font-size: 65%;
+    }
+
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    h4 small,
+    .h4 small,
+    h5 small,
+    .h5 small,
+    h6 small,
+    .h6 small,
+    h4 .small,
+    .h4 .small,
+    h5 .small,
+    .h5 .small,
+    h6 .small,
+    .h6 .small {
+        font-size: 75%;
+    }
+
+h1,
+.h1 {
+    font-size: 36px;
+}
+
+h2,
+.h2 {
+    font-size: 30px;
+}
+
+h3,
+.h3 {
+    font-size: 24px;
+}
+
+h4,
+.h4 {
+    font-size: 18px;
+}
+
+h5,
+.h5 {
+    font-size: 16px;
+}
+
+h6,
+.h6 {
+    font-size: 12px;
+}
+
+.clickable {
+    cursor: pointer;
+}

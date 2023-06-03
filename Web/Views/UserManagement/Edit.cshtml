@@ -1,0 +1,60 @@
+﻿@model EditUserViewModel
+<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-right-arrow">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-controller="UserManagement" asp-action="Index">User management</a></li>
+        <li class="breadcrumb-item"><a href="#">Edit user</a></li>
+    </ol>
+</nav>
+@{
+    ViewData["Title"] = "Edit User";
+}
+@Html.Hidden("ChangeHome", @Url.Action("ChangeHome", "UserManagement"))
+@Html.Hidden("UpdateEmail", @Url.Action("UpdateEmail", "UserManagement"))
+<div class="shadow card mb-4 mt-5">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Edit User</h6>
+    </div>
+    <div class="card-body p-5">
+
+        <form id="editUser" role="form" method="post">
+            <input asp-for="UserId" hidden />
+
+            <div class="row gy-2 gx-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="" asp-for="CareHomeId">Care Home</label>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select" asp-for="CareHomeId" asp-items="Model.CareHomes"><option>Choose...</option></select>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary" id="changeHome">Update home</button>
+                </div>
+            </div>
+            <div class="row gy-2 gx-3 align-items-center mb-3">
+                <div class="col-auto">
+                    <label class="" asp-for="Email">Care Home</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Email">
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary" id="updateEmail">Update email</button>
+                </div>
+            </div>
+            <a asp-controller="UserManagement" asp-action="Index" class="btn btn-primary">Finish</a>
+
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        UserEdit();
+    </script>
+}

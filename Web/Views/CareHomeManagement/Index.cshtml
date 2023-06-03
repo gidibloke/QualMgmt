@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Index - Care Home";
+}
+
+<link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
+<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-right-arrow">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Care home management</a></li>
+
+    </ol>
+</nav>
+
+@Html.Hidden("GetCareHomes", @Url.Action("GetCareHomes", "CareHomeManagement"))
+<div class="shadow card mb-4 mt-5">
+    <div class="card-header py-3 d-flex">
+        <div class="p-2 flex-grow-1">Care homes</div>
+        <div class="p-2">
+            <a asp-controller="CareHomeManagement" asp-action="Create" class="btn btn-primary">Add Home</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-bordered" style="width:100%" id="Homes">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center"></th>
+                    <th scope="col" class="text-center">Home name</th>
+                    <th scope="col" class="text-center">Post code</th>
+                    <th scope="col" class="text-center"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDelete" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete care home</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="confirm">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section LibScripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+}
+@section Scripts{
+    <script>
+        CareHomeIndex()
+    </script>
+}

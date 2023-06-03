@@ -1,0 +1,66 @@
+﻿@model AddUserViewModel
+<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-right-arrow">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-controller="UserManagement" asp-action="Index">User management</a></li>
+        <li class="breadcrumb-item"><a href="#">Add user</a></li>
+    </ol>
+</nav>
+@{
+    ViewData["Title"] = "Add User";
+}
+<div class="shadow card mb-4 mt-5">
+    <div class="card-header py-3">
+        Add User
+    </div>
+    <div class="card-body p-5">
+        <form id="register" role="form" method="post" class="">
+            <input asp-for="RoleName" hidden />
+            <div class="row mb-3">
+                <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="FirstName" class="form-control">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="LastName" class="form-control">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="RoleId" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <select class="form-select" asp-for="RoleId" asp-items="Model.Roles"><option>Choose role...</option></select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="CareHomeId" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <select class="form-select" asp-for="CareHomeId" asp-items="Model.HomeList"><option>Choose home...</option></select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="Email" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="Email" class="form-control">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add User</button>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        AddUser();
+    </script>
+}

@@ -1,0 +1,32 @@
+﻿@model QualificationViewModel
+@{
+    ViewData["Title"] = "Create - Qualifications";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-right-arrow">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Qualifications management</a></li>
+        <li class="breadcrumb-item"><a href="#">Create qualification</a></li>
+
+    </ol>
+</nav>
+
+<div class="shadow card mb-4 mt-5">
+    <div class="card-header py-3">
+        Create new care home
+    </div>
+    <div class="card-body p-5">
+        <form id="register" role="form" method="post" class="">
+            <div class="row mb-3">
+                <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="Description" class="form-control">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿@model AdminDashboardViewModel
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-right-arrow">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Admin dashboard</a></li>
+        </ol>
+    </nav>
+    @{
+        ViewData["Title"] = "Admin dashboard";
+    }
+    <p>Application administration modules can be accessed from here. </p>
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-xl-4 col-md-5 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Users</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Users</div>
+                                    <div class="text-muted h6">Enabled: @Model.EnabledUsers</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-users fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                            <div class="row align-items-end">
+                                <div class="col pt-4">
+                                    <a asp-controller="UserManagement" asp-action="Index" class="btn btn-sm btn-primary shadow-sm">User administration</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-5 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Care homes</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.CareHomes</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-hospital-alt fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                            <div class="row align-items-end">
+                                <div class="col pt-4">
+                                    <a asp-controller="CareHomeManagement" asp-action="Index" class="btn btn-sm btn-primary shadow-sm">Care homes administration</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-5 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Qualifications</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-scroll fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                            <div class="row align-items-end">
+                                <div class="col pt-4">
+                                    <a asp-controller="Qualifications" asp-action="Index" class="btn btn-sm btn-primary shadow-sm">Manage</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>

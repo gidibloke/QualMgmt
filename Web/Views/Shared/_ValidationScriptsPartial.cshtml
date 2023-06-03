@@ -1,0 +1,19 @@
+﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $.validator.addMethod("noFutureDates", function (value, element) {
+        var now = new Date();
+        var myDate = new Date(value);
+        return this.optional(element) || myDate < now;
+    })
+    $.validator.setDefaults({
+        invalidHandler: function () {
+            console.log('invalidHandler');
+        },
+        submitHandler: function (form) {
+            $(form).find('input[type="submit"]').attr('disabled', 'disabled');
+            console.log('Button disabled, submitting form');
+            form.submit();
+        }
+    });
+</script>

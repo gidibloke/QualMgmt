@@ -1,0 +1,44 @@
+﻿@model CareHomeViewModel
+@{
+    ViewData["Title"] = "Create - Carehome management";
+}
+
+<link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-right-arrow">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a asp-controller="AdminDashboard" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-controller="CareHomeManagement" asp-action="Index">Care home management</a></li>
+        <li class="breadcrumb-item"><a href="#">Edit care home</a></li>
+
+    </ol>
+</nav>
+
+<div class="shadow card mb-4 mt-5">
+    <div class="card-header py-3">
+        Edit new care home
+    </div>
+    <div class="card-body p-5">
+        <form id="register" role="form" method="post" class="">
+            <div class="row mb-3">
+                <input asp-for="Id"hidden/>
+                <input asp-for="DateCreated" hidden/>
+                <label asp-for="HomeName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="HomeName" class="form-control">
+                    <span asp-validation-for="HomeName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="PostCode" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="PostCode" class="form-control">
+                    <span asp-validation-for="PostCode" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+    </div>
+</div>
