@@ -1,0 +1,20 @@
+﻿@{
+    if (TempData["success"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["success"].ToString()
+        </div>
+    }
+    if (TempData["message"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["message"].ToString()
+        </div>
+    }
+    if (TempData["failure"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["failure"].ToString()
+        </div>
+    }
+}

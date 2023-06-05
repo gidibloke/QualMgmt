@@ -1,5 +1,79 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet" />
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-right-arrow">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+
+        <li class="breadcrumb-item"><a href="#">Manager dashboard</a></li>
+    </ol>
+</nav>
 @{
+    ViewData["Title"] = "Manager dashboard";
+}
+
+<p>Staffs that have been added to your establishment can be found here </p>
+<div class="row no-gutters">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-xl-4 col-md-5 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Staff Members</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                        <div class="row align-items-end">
+                            <div class="col pt-4">
+                                <a class="btn btn-primary btn-sm" asp-controller="StaffManagement" asp-action="Create">Add Staff</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Hidden("GetAllStaff", @Url.Action("GetAllStaff", "StaffManagement"))
+<div class="shadow card mb-4 mt-5">
+    <div class="card-header py-3 d-flex">
+        <div class="p-2 flex-grow-1">Users</div>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped table-bordered" style="width:100%" id="Staffs">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">First Name</th>
+                    <th scope="col" class="text-center">Last Name</th>
+                    <th scope="col" class="text-center">Job Title</th>
+                    <th scope="col" class="text-center">Date Created</th>
+                    <th scope="col" class="text-center"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+@section LibScripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+    <script src="~/lib/moment.js/moment-with-locales.js"></script>
+    <script src="~/lib/moment.js/moment-with-locales.min.js"></script>
+    <script src="~/lib/moment.js/locale/en-gb.js"></script>
+    <script src="~/lib/moment.js/locale/en-gb.min.js"></script>
+}
+@section Scripts{
+    <script>
+        ManagerIndex()
+    </script>
 }

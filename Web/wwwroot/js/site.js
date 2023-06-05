@@ -381,7 +381,74 @@ let QualificationIndex = function () {
     });
 }
 
+let ManagerIndex = function () {
+    $(document).ready(function () {
 
+        var url = $('#GetAllStaff').val();
+        var table = $('#Staffs').DataTable({
+            language: {
+                "emptyTable": "No staffs added yet"
+            },
+            pageLength: 10,
+            pagingType: "numbers",
+            ajax: {
+                "url": url,
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "fnInitComplete": function (oSettings, json) {
+                //console.log(json);
+            },
+            columns: [
+                { data: 'FirstName', name: 'FirstName' },
+                { data: 'LastName', name: 'LastName' },
+                { data: 'JobTitle', name: 'JobTitle' },
+                { data: 'DateCreated', name: 'DateCreated' },
+                { data: 'Id', name: 'Id' },
+            ],
+            columnDefs: [
+                { "className": "text-center", "targets": "_all" },
+                {
+                    targets: 3,
+                    render: function (a, b, data, d) {
+                        if (data.DateCreated != null) {
+                            moment.locale = "en-gb";
+                            return moment(data.DateCreated).format("L")
+                        }
+                    }
+                },
+                {
+                    targets: 4,
+                    render: function (a, b, data, d) {
+                        var url = ``;
+                        if (data.Id != null) {
+                            url = `<a class="btn btn-info btn-sm" href="StaffManagement/Edit/` + data.Id + `">Edit</a> 
+                            <a class="btn btn-danger btn-sm" href="#" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-id = "` + data.Id + `">Delete</a>
+                            </a> <a class="btn btn-info btn-sm" href="StaffQualifications/Index/` + data.Id + `">Manage qualifications</a>`
+                        }
+                        return url;
+                    }
+                }
+            ]
+        })
+
+    });
+}
+
+let CreateQualification = function () {
+    $(document).ready(function () {
+        $('#QualificationId').on('change', function () {
+            var QualId = $('#QualificationId option:selected').val();
+            console.log(QualId);
+            if (QualId == 1) {
+                $(".Other").show("slow")
+            } else if (QualId != 1) {
+                $(".Other").hide("slow")
+            }
+        })
+
+    });
+}
 
 
 

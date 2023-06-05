@@ -1,0 +1,87 @@
+﻿@model StaffQualificationViewModel
+@{
+    ViewData["Title"] = "Create qualification";
+}
+<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-right-arrow">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a asp-controller="StaffManagement" asp-action="Index">Manager dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-controller="StaffQualifications" asp-action="Index" asp-route-id="@Model.StaffId">Qualifications</a></li>
+        <li class="breadcrumb-item"><a href="#">Add Qualification</a></li>
+    </ol>
+</nav>
+
+<div class="shadow card mb-4 mt-5">
+    <div class="card-header py-3">
+        Add new qualifications
+    </div>
+    <div class="card-body p-5">
+        <form id="register" role="form" method="post" class="" enctype="multipart/form-data">
+            <input asp-for="StaffId" hidden />
+            <div class="row mb-3c g-3">
+                <div class="col-12">
+                    <label asp-for="QualificationId" class="form-label"></label>
+                    <select class="form-select" asp-for="QualificationId" asp-items="Model.Qualifications"><option>Select type</option></select>
+                </div>
+                <div class="col-12">
+                    <label asp-for="AwardingOrganisation" class="form-label"></label>
+                    <input asp-for="AwardingOrganisation" class="form-control">
+                    <span asp-validation-for="AwardingOrganisation" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="DateAttainedFrom" class="form-label"></label>
+                    <input asp-for="DateAttainedFrom" class="form-control">
+                    <span asp-validation-for="DateAttainedFrom" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="DateAttainedTo" class="form-label"></label>
+                    <input asp-for="DateAttainedTo" class="form-control">
+                    <span asp-validation-for="DateAttainedTo" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Subject" class="form-label"></label>
+                    <input asp-for="Subject" class="form-control">
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Grade" class="form-label"></label>
+                    <input asp-for="Grade" class="form-control">
+                    <span asp-validation-for="Grade" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 Other">
+                    <label class="form-label"></label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" asp-for="RenewableYN">
+                        <label class="form-check-label" asp-for="RenewableYN">
+                            Check if qualification needs to be renewed
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6 Other">
+                    <label asp-for="ExpiryDate" class="form-label"></label>
+                    <input asp-for="ExpiryDate" class="form-control">
+                    <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="formFile" class="form-label">Upload evidence</label>
+                    <input class="form-control" type="file" asp-for="FormFile">
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section LibScripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+@section Scripts{
+
+    <script>
+        CreateQualification();
+    </script>
+
+}

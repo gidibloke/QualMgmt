@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IManagerDashboard
+    public interface ISetStaffSession
     {
-        Task<Result<StaffViewModel>> GetAllStaff();
+        Task<Result<StaffSessionViewModel>> SetStaffSession(string Id);
     }
 }

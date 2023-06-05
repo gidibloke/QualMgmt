@@ -86,9 +86,11 @@ namespace Web.Extensions
             services.AddScoped<IAccount, AccountRepository>();
             services.AddScoped<IAdminDashboard, AdminDashboardRepository>();
             services.AddScoped<IUserManagement, UserManagementRepository>();
+
             services.AddScoped<ISetReturnMessages, SetReturnMessageService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+            services.AddScoped<ISetStaffSession, SetSessionService>();
 
             return services;
         }

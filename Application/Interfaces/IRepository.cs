@@ -10,7 +10,7 @@ namespace Application.Interfaces
 {
     public interface IRepository<T>
     {
-        Task<Result<T>> GetByIdAsync(int id);
+        Task<Result<T>> GetByIdAsync(object id);
         Task<Result<List<T>>> GetAllAsync();
         Task<Result<object>> AddAsync(T entity);
         Task<Result<object>> UpdateAsync(T entity);

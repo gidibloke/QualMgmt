@@ -49,8 +49,12 @@ namespace Application.Repositories
             return Result<List<T>>.Failure(errorMessage: "Sequence does not contain element");
         }
 
-        public async Task<Result<T>> GetByIdAsync(int id)
+        public async Task<Result<T>> GetByIdAsync(object id)
         {
+            if(id.GetType() == typeof(string))
+            {
+                id = Guid.Parse(id.ToString());
+            }
             T entity = await _context.Set<T>().FindAsync(id);
             if(entity != null)
                 return Result<T>.Success(entity);

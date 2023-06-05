@@ -12,6 +12,9 @@ namespace Web.Controllers
 
         private IMapper _mapper;
         protected IMapper Mapper => _mapper ??= HttpContext.RequestServices.GetRequiredService<IMapper>();
+
+        private Guid? _staffId;
+        protected Guid? StaffId => _staffId ??= Guid.Parse(HttpContext.Session.GetString("StaffId"));
     }
 
 }
