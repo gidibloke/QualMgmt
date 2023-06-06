@@ -14,17 +14,17 @@
 @{
     ViewData["Title"] = "Staff Qualifications";
 }
-
+@Html.Hidden("GetQualifications", @Url.Action("GetQualifications", "StaffQualifications"))
 <div class="shadow card mb-4 mt-5">
     <div class="card-header py-3 d-flex">
-        <div class="p-2 flex-grow-1">Staffs</div>
+        <div class="p-2 flex-grow-1">Qualifications</div>
         <div class="p-2">
             <a asp-controller="StaffQualifications" asp-action="Create" class="btn btn-primary">Add Qualifications</a>
         </div>
     </div>
     <div class="card-body">
         @await Component.InvokeAsync("Staff")
-        <table class="table table-striped table-bordered" style="width:100%" id="Qualifications">
+        <table class="table table-striped table-bordered" style="width:100%" id="StaffQualifications">
             <thead>
                 <tr>
                     <th scope="col" class="text-center"></th>
@@ -36,3 +36,38 @@
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDelete" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete qualification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="confirm">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section LibScripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
+    <script src="~/lib/moment.js/moment-with-locales.js"></script>
+    <script src="~/lib/moment.js/moment-with-locales.min.js"></script>
+    <script src="~/lib/moment.js/locale/en-gb.js"></script>
+    <script src="~/lib/moment.js/locale/en-gb.min.js"></script>
+
+}
+@section Scripts{
+    <script>
+        AddStaffQualification()
+    </script>
+}

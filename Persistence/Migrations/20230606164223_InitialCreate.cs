@@ -30,12 +30,27 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HomeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    HomeName = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    PostCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CareHomes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Qualifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Qualifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -90,6 +105,29 @@ namespace Persistence.Migrations
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
                         name: "FK_AspNetUsers_CareHomes_CareHomeId",
+                        column: x => x.CareHomeId,
+                        principalTable: "CareHomes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Staff",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AnnualSalary = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CareHomeId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Staff", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Staff_CareHomes_CareHomeId",
                         column: x => x.CareHomeId,
                         principalTable: "CareHomes",
                         principalColumn: "Id");
@@ -180,6 +218,40 @@ namespace Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StaffQualifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QualificationId = table.Column<int>(type: "int", nullable: true),
+                    StaffId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AwardingOrganisation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateAttainedFrom = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateAttainedTo = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Grade = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RenewableYN = table.Column<bool>(type: "bit", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DocumentPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StaffQualifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StaffQualifications_Qualifications_QualificationId",
+                        column: x => x.QualificationId,
+                        principalTable: "Qualifications",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_StaffQualifications_Staff_StaffId",
+                        column: x => x.StaffId,
+                        principalTable: "Staff",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -223,6 +295,35 @@ namespace Persistence.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CareHomes_HomeName",
+                table: "CareHomes",
+                column: "HomeName",
+                unique: true,
+                filter: "[HomeName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Qualifications_Description",
+                table: "Qualifications",
+                column: "Description",
+                unique: true,
+                filter: "[Description] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Staff_CareHomeId",
+                table: "Staff",
+                column: "CareHomeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffQualifications_QualificationId",
+                table: "StaffQualifications",
+                column: "QualificationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffQualifications_StaffId",
+                table: "StaffQualifications",
+                column: "StaffId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -243,10 +344,19 @@ namespace Persistence.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "StaffQualifications");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Qualifications");
+
+            migrationBuilder.DropTable(
+                name: "Staff");
 
             migrationBuilder.DropTable(
                 name: "CareHomes");

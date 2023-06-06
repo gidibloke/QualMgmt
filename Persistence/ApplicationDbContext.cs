@@ -16,7 +16,7 @@ namespace Persistence
         public DbSet<CareHome> CareHomes { get; set; }
         public DbSet<Qualification> Qualifications { get; set; }
         public DbSet<Staff> Staff { get; set; }
-
+        public DbSet<StaffQualification> StaffQualifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -28,6 +28,7 @@ namespace Persistence
             {
                 e.HasIndex(x => x.Description).IsUnique();
             });
+            builder.Entity<Staff>().HasMany(x => x.StaffQualifications).WithOne(o => o.Staff).OnDelete(DeleteBehavior.Cascade);
             base.OnModelCreating(builder);
         }
 

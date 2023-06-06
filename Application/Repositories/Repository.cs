@@ -41,9 +41,21 @@ namespace Application.Repositories
             return Result<List<T>>.Failure(errorMessage: "Sequence does not contain element");
         }
 
-        public async Task<Result<List<T>>> GetByConditionAsync(Expression<Func<T, bool>> condition)
+        public async Task<Result<List<T>>> GetByConditionAndIncludeAsync(Expression<Func<T, bool>> condition, params Expression<Func<T, object>>[] includes)
         {
-            List<T> entities = await _context.Set<T>().Where(condition).ToListAsync();
+            var query = _context.Set<T>().AsQueryable();
+            if (condition != null)
+            {
+                query = query.Where(condition);
+            }
+            if(includes.Length != 0)
+            {
+                foreach(var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+            List<T> entities = await query.ToListAsync();
             if( entities != null)
                 return Result<List<T>>.Success(entities);
             return Result<List<T>>.Failure(errorMessage: "Sequence does not contain element");

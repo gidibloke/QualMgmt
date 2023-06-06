@@ -1,0 +1,86 @@
+﻿@model StaffViewModel
+@{
+    ViewData["Title"] = "Edit staff";
+}
+<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-right-arrow">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a asp-controller="StaffManagement" asp-action="Index">Manager dashboard</a></li>
+        <li class="breadcrumb-item"><a href="#">Edit staff</a></li>
+
+    </ol>
+</nav>
+
+<div class="shadow card mb-4 mt-5">
+    <div class="card-header py-3">
+        Create new care home
+    </div>
+    <div class="card-body p-5">
+        <form id="register" role="form" method="post" class="">
+            <div class="row mb-3">
+                <input asp-for="Id" hidden/>
+                <input asp-for="DateCreated" hidden/>
+                <input asp-for="EntBy" hidden/>
+
+                @{
+                    if (User.IsInRole("Manager"))
+                    {
+                        <input asp-for="CareHomeId" hidden />
+                    }
+                    if (User.IsInRole("Admin"))
+                    {
+
+                        <label asp-for="CareHomeId" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-5">
+                            <select class="form-select" asp-for="CareHomeId" asp-items="Model.CareHomes"><option>Choose home...</option></select>
+                        </div>
+
+                    }
+                }
+            </div>
+            <div class="row mb-3">
+                <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="FirstName" class="form-control">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="LastName" class="form-control">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label asp-for="DateOfBirth" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="DateOfBirth" class="form-control">
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label asp-for="JobTitle" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="JobTitle" class="form-control">
+                    <span asp-validation-for="JobTitle" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label asp-for="AnnualSalary" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-5">
+                    <input asp-for="AnnualSalary" class="form-control">
+                    <span asp-validation-for="AnnualSalary" class="text-danger"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Update User</button>
+        </form>
+    </div>
+</div>
+@section LibScripts{
+    <partial name="_ValidationScriptsPartial" />
+}

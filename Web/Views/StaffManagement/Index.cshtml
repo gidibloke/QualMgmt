@@ -43,6 +43,7 @@
     </div>
 </div>
 @Html.Hidden("GetAllStaff", @Url.Action("GetAllStaff", "StaffManagement"))
+@Html.Hidden("Delete", @Url.Action("Delete", "StaffManagement"))
 <div class="shadow card mb-4 mt-5">
     <div class="card-header py-3 d-flex">
         <div class="p-2 flex-grow-1">Users</div>
@@ -61,7 +62,24 @@
         </table>
     </div>
 </div>
-
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="confirmDelete" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete staff</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="confirm">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section LibScripts{
     <partial name="_ValidationScriptsPartial" />

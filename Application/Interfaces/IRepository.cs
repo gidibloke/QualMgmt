@@ -15,7 +15,7 @@ namespace Application.Interfaces
         Task<Result<object>> AddAsync(T entity);
         Task<Result<object>> UpdateAsync(T entity);
         Task<Result<object>> DeleteAsync(T entity);
-        Task<Result<List<T>>> GetByConditionAsync(Expression<Func<T, bool>> condition);
+        Task<Result<List<T>>> GetByConditionAndIncludeAsync(Expression<Func<T, bool>> condition, params Expression<Func<T, object>>[] includes);
 
     }
 }

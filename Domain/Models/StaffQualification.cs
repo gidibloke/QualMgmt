@@ -14,6 +14,7 @@ namespace Domain.Models
         public int? QualificationId { get; set; }
         public virtual Qualification Qualification { get; set; }
         public Guid? StaffId { get; set; }
+        //[Required]
         public virtual Staff Staff { get; set; }
         public string AwardingOrganisation { get; set; }
         public DateTime? DateAttainedFrom { get; set; }

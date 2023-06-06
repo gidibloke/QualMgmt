@@ -204,6 +204,9 @@ namespace Persistence.Migrations
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EntBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -218,6 +221,56 @@ namespace Persistence.Migrations
                     b.HasIndex("CareHomeId");
 
                     b.ToTable("Staff");
+                });
+
+            modelBuilder.Entity("Domain.Models.StaffQualification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AwardingOrganisation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateAttainedFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateAttainedTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DocumentPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Grade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("QualificationId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RenewableYN")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("StaffId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QualificationId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("StaffQualifications");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -348,6 +401,22 @@ namespace Persistence.Migrations
                     b.Navigation("CareHome");
                 });
 
+            modelBuilder.Entity("Domain.Models.StaffQualification", b =>
+                {
+                    b.HasOne("Domain.LookupModels.Qualification", "Qualification")
+                        .WithMany()
+                        .HasForeignKey("QualificationId");
+
+                    b.HasOne("Domain.Models.Staff", "Staff")
+                        .WithMany("StaffQualifications")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Qualification");
+
+                    b.Navigation("Staff");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Domain.Models.AppRole", null)
@@ -397,6 +466,11 @@ namespace Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.Staff", b =>
+                {
+                    b.Navigation("StaffQualifications");
                 });
 #pragma warning restore 612, 618
         }

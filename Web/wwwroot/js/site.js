@@ -431,21 +431,132 @@ let ManagerIndex = function () {
                 }
             ]
         })
-
+        $('#confirmDelete').on('show.bs.modal', function (e) {
+            unitId = $(e.relatedTarget).data('id');
+            console.log(unitId);
+        })
+        $('#confirmDelete').find('.modal-footer #confirm').on('click', function () {
+            var urlToDelete = `/StaffManagement/Delete/${unitId}`;
+            console.log(urlToDelete);
+            $.ajax(urlToDelete, {
+                type: "POST",
+                data: {
+                    id: unitId,
+                    __RequestVerificationToken: $("[name='__RequestVerificationToken']").val(),
+                }
+            }).done(function (response) {
+                console.log(response);
+                $('#confirmDelete').modal('hide');
+                if (response.success) {
+                    runAlertSuccess("Operation successful")
+                    $('#Staffs').DataTable().ajax.reload();
+                } else {
+                    runAlertError("Operation failed, please try again later");
+                }
+            }).fail(function (response) {
+                $('#confirmDelete').modal('hide');
+                runAlertError("Operation failed, please try again later");
+                $('#Staffs').DataTable().ajax.reload();
+            })
+        });
     });
 }
 
 let CreateQualification = function () {
     $(document).ready(function () {
+        $(".Other").hide("hide")
         $('#QualificationId').on('change', function () {
             var QualId = $('#QualificationId option:selected').val();
             console.log(QualId);
-            if (QualId == 1) {
+            if (QualId == 6) {
                 $(".Other").show("slow")
-            } else if (QualId != 1) {
+            } else if (QualId != 6) {
                 $(".Other").hide("slow")
             }
         })
+
+    });
+}
+
+let AddStaffQualification = function () {
+    $(document).ready(function () {
+
+        var url = $('#GetQualifications').val();
+        var table = $('#StaffQualifications').DataTable({
+            language: {
+                "emptyTable": "No qualifications added yet"
+            },
+            pageLength: 10,
+            pagingType: "numbers",
+            ajax: {
+                "url": url,
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "fnInitComplete": function (oSettings, json) {
+                //console.log(json);
+            },
+            columns: [
+
+                { data: 'Description', name: 'Description' },
+                { data: 'AwardingOrganisation', name: 'AwardingOrganisation' },
+                { data: 'DateAttainedTo', name: 'DateAttainedTo' },
+                { data: 'Id', name: 'Id' }
+
+            ],
+            columnDefs: [
+                { "className": "text-center", "targets": "_all" },
+                {
+                    targets: 2,
+                    render: function (a, b, data, d) {
+                        if (data.DateAttainedTo != null) {
+                            moment.locale = "en-gb";
+                            return moment(data.DateAttainedTo).format("L")
+                        }
+                    }
+                },
+                {
+                    targets: 3,
+                    render: function (a, b, data, d) {
+                        var url = ``;
+                        if (data.Id != null) {
+                            url = `<a class="btn btn-info btn-sm" href="/StaffQualifications/Edit/` + data.Id + `">Edit</a> 
+                            <a class="btn btn-danger btn-sm" href="#" data-bs-toggle="modal" data-bs-target="#confirmDelete" data-id = "` + data.Id + `">Delete</a>`
+                        }
+                        return url;
+                    }
+                }
+            ]
+        })
+
+        $('#confirmDelete').on('show.bs.modal', function (e) {
+            unitId = $(e.relatedTarget).data('id');
+            console.log(unitId);
+        })
+        $('#confirmDelete').find('.modal-footer #confirm').on('click', function () {
+            var urlToDelete = `/StaffQualifications/Delete/${unitId}`;
+            console.log(urlToDelete);
+            $.ajax(urlToDelete, {
+                type: "POST",
+                data: {
+                    id: unitId,
+                    __RequestVerificationToken: $("[name='__RequestVerificationToken']").val(),
+                }
+            }).done(function (response) {
+                console.log(response);
+                $('#confirmDelete').modal('hide');
+                if (response.success) {
+                    runAlertSuccess("Operation successful")
+                    $('#StaffQualifications').DataTable().ajax.reload();
+                } else {
+                    runAlertError("Operation failed, please try again later");
+                }
+            }).fail(function (response) {
+                $('#confirmDelete').modal('hide');
+                runAlertError("Operation failed, please try again later");
+                $('#StaffQualifications').DataTable().ajax.reload();
+            })
+        });
 
     });
 }

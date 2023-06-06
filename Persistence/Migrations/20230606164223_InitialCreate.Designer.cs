@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230603131907_AddIndex")]
-    partial class AddIndex
+    [Migration("20230606164223_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,29 @@ namespace Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Domain.LookupModels.Qualification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Description")
+                        .IsUnique()
+                        .HasFilter("[Description] IS NOT NULL");
+
+                    b.ToTable("Qualifications");
+                });
 
             modelBuilder.Entity("Domain.Models.AppRole", b =>
                 {
@@ -165,6 +188,90 @@ namespace Persistence.Migrations
                     b.ToTable("CareHomes");
                 });
 
+            modelBuilder.Entity("Domain.Models.Staff", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnnualSalary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CareHomeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CareHomeId");
+
+                    b.ToTable("Staff");
+                });
+
+            modelBuilder.Entity("Domain.Models.StaffQualification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AwardingOrganisation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateAttainedFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateAttainedTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DocumentPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Grade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("QualificationId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RenewableYN")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("StaffId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QualificationId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("StaffQualifications");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -284,6 +391,31 @@ namespace Persistence.Migrations
                     b.Navigation("CareHome");
                 });
 
+            modelBuilder.Entity("Domain.Models.Staff", b =>
+                {
+                    b.HasOne("Domain.Models.CareHome", "CareHome")
+                        .WithMany()
+                        .HasForeignKey("CareHomeId");
+
+                    b.Navigation("CareHome");
+                });
+
+            modelBuilder.Entity("Domain.Models.StaffQualification", b =>
+                {
+                    b.HasOne("Domain.LookupModels.Qualification", "Qualification")
+                        .WithMany()
+                        .HasForeignKey("QualificationId");
+
+                    b.HasOne("Domain.Models.Staff", "Staff")
+                        .WithMany("StaffQualifications")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Qualification");
+
+                    b.Navigation("Staff");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Domain.Models.AppRole", null)
@@ -333,6 +465,11 @@ namespace Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Models.Staff", b =>
+                {
+                    b.Navigation("StaffQualifications");
                 });
 #pragma warning restore 612, 618
         }

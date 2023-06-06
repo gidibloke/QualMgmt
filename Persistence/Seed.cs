@@ -1,8 +1,10 @@
-﻿using Domain.Models;
+﻿using Domain.LookupModels;
+using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,7 +52,44 @@ namespace Persistence
                 context.AddRange(data);
                 await context.SaveChangesAsync();
             }
-
+            if (!context.Qualifications.Any())
+            {
+                var data = new List<Qualification>
+                {
+                    new Qualification
+                    {
+                        Description = "A-Levels",
+                        DateCreated = DateTime.Now
+                    },
+                    new Qualification
+                    {
+                        Description = "GCSEs",
+                        DateCreated = DateTime.Now
+                    },
+                    new Qualification
+                    {
+                        Description = "Bachelors",
+                        DateCreated = DateTime.Now
+                    },
+                    new Qualification
+                    {
+                        Description = "Masters",
+                        DateCreated = DateTime.Now
+                    },
+                    new Qualification
+                    {
+                        Description = "PhD",
+                        DateCreated = DateTime.Now
+                    },
+                    new Qualification
+                    {
+                        Description = "Other",
+                        DateCreated = DateTime.Now
+                    }
+                };
+                context.AddRange(data);
+                await context.SaveChangesAsync();
+            }
             if (!userManager.Users.Any())
             {
                 var users = new List<AppUser>
@@ -64,16 +103,33 @@ namespace Persistence
                         EmailConfirmed = true,
                         IsEnabled = true,
                         DateCreated = DateTime.Now,
+                        DateRegistered = DateTime.Now,
+                        CareHomeId = 1
+                    },
+                    new AppUser
+                    {
+                        FirstName = "Idris",
+                        LastName = "Admin",
+                        Email = "idris@admin.com",
+                        UserName = "idris@admin.com",
+                        EmailConfirmed = true,
+                        IsEnabled = true,
+                        DateCreated = DateTime.Now,
                         DateRegistered = DateTime.Now
+
                     }
 
                 };
                 foreach(var user in users)
                 {
-                    var result = await userManager.CreateAsync(user, "Password1");
-                    if (result.Succeeded)
-                    {
+                    await userManager.CreateAsync(user, "Password1");
+                    if (user.Email == "idris@manager.com")                    {
                         await userManager.AddToRoleAsync(user, "Manager");
+                    }
+                    if (user.Email == "idris@admin.com")
+                    {
+                        await userManager.AddToRoleAsync(user, "Admin");
+
                     }
                 }
 

@@ -23,6 +23,7 @@ namespace Application.ViewModels
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
         [MinimumAge(16, ErrorMessage = "Minimum age of staffs is 16")]
+
         public DateTime? DateOfBirth { get; set; }
         [Display(Name = "Job Title")]
 
@@ -35,6 +36,8 @@ namespace Application.ViewModels
         [Display(Name = "Choose care home")]
         public int? CareHomeId { get; set; }
         public IEnumerable<SelectListItem> CareHomes { get; set; }
+        public string EntBy { get; set; }
+
     }
 
     public class StaffViewModelValidator : AbstractValidator<StaffViewModel>

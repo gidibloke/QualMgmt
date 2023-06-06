@@ -17,7 +17,9 @@ namespace Domain.Models
         public DateTime? DateCreated { get; set; }
         public int? CareHomeId { get; set; }
         public virtual CareHome CareHome { get; set; }
+        public ICollection<StaffQualification> StaffQualifications { get; set; }
 
+        public string EntBy { get; set; }
 
     }
 }

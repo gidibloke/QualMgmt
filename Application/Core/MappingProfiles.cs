@@ -18,7 +18,7 @@ namespace Application.Core
             CreateMap<CareHome, CareHomeViewModel>().ReverseMap();
             CreateMap<Qualification, QualificationViewModel>().ReverseMap();
             CreateMap<Staff, StaffViewModel>().ReverseMap();
-            //CreateMap<StaffQualification, StaffQualificationViewModel>().ReverseMap();
+            CreateMap<StaffQualification, StaffQualificationViewModel>().ReverseMap();
         }
     }
 }
